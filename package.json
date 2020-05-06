@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/drowzeehq/notion-mock.git",
-  "author": "Lars Karbo <mail@larskarbo.no>",
+  "author": "Lars Karbo <lars@drowzee.com>",
   "license": "MIT",
   "dependencies": {
     "n-readlines": "^1.0.0",
