@@ -1,24 +1,24 @@
 const { Subject } = require("rxjs")
 const data = require("./data/Obsidian chameleon.json")
 
-const FREQUENCY = 250/64
+const FREQUENCY = 250 / 64
 
 class Notion {
-  constructor(){
+  constructor() {
     this.sourceData = data
   }
 
-  async login(){
+  async login() {
     // do nothing
   }
 
-  brainwaves(type){
-    if(type !== "raw"){
+  brainwaves(type) {
+    if (type !== "raw") {
       throw new Error("Only works with 'raw'")
     }
 
     const stream = new Subject()
-    
+
     let i = 0
     setInterval(() => {
       // console.log('lineData: ', Object.values(lineData));
@@ -26,10 +26,10 @@ class Notion {
         data: [],
         info: {
           channelNames: [
-            'CP6',  'F6',
-             'C4', 'CP4',
-            'CP3',  'F5',
-             'C3', 'CP5'
+            'CP6', 'F6',
+            'C4', 'CP4',
+            'CP3', 'F5',
+            'C3', 'CP5'
           ],
           notchFrequency: '50Hz',
           samplingRate: 250,
@@ -43,19 +43,19 @@ class Notion {
         if (i == this.sourceData.samples.length - 1) {
           i = 0
         }
-  
+
         this.sourceData.samples[i].data.forEach((s, si) => {
-          if(!packet.data[si]){
+          if (!packet.data[si]) {
             packet.data[si] = []
           }
           packet.data[si].push(s)
         })
 
-        
+
         i++
 
       })
-        
+
 
       stream.next(packet)
     }, 1000 / FREQUENCY)
@@ -65,4 +65,4 @@ class Notion {
 }
 
 
-module.exports = Notion
+module.exports = { Notion }
