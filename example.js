@@ -1,4 +1,4 @@
-const Notion = require("./index")
+const { Notion } = require("./index")
 
 const test = async () => {
   const notion = new Notion()

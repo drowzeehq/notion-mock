@@ -5,7 +5,7 @@ Really simple mock device for streaming raw brainwaves with notionjs.
 
 
 ```js
-const Notion = require("@drowzee/notion-mock")
+const { Notion } = require("@drowzee/notion-mock")
 
 const notion = new Notion()
 
@@ -37,4 +37,5 @@ notion.sourceData = myRecording // format: neurosity json export
 TODO:
 
 [] mock other parts of the api
+
 [] not load the whole file into memory
