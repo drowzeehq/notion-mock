@@ -23,7 +23,7 @@ class Notion {
     setInterval(() => {
       // console.log('lineData: ', Object.values(lineData));
       let packet = {
-        data: Array(8).fill([]),
+        data: [],
         info: {
           channelNames: [
             'CP6',  'F6',
@@ -45,8 +45,12 @@ class Notion {
         }
   
         this.sourceData.samples[i].data.forEach((s, si) => {
+          if(!packet.data[si]){
+            packet.data[si] = []
+          }
           packet.data[si].push(s)
         })
+
         
         i++
 
