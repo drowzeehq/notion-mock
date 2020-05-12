@@ -1,6 +1,8 @@
 # Notion-js Mock Device
 
 
+⚠️⚠️⚠️ Doesn't apply filters to the data, so if you use data from the neurosity console you will get different data
+
 Really simple mock device for streaming raw brainwaves with notionjs.
 
 
