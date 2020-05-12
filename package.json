@@ -6,6 +6,7 @@
   "author": "Lars Karbo <lars@drowzee.com>",
   "license": "MIT",
   "dependencies": {
+    "@neurosity/pipes": "^3.2.3",
     "n-readlines": "^1.0.0",
     "rxjs": "^6.5.5"
   }

@@ -2,12 +2,31 @@
 # yarn lockfile v1
 
 
+"@neurosity/pipes@^3.2.3":
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/@neurosity/pipes/-/pipes-3.2.3.tgz#acc71f9f965c5ba96dd1ba9d1ca9785924217b5e"
+  integrity sha512-aDa/iTe7OUbwgFFnRgGcB/hTgBdkr21E5vQbpOXZpByQijB4czGDgXJfFtI3zuLKST3bZuiQ7/ZPBA3+P8GENA==
+  dependencies:
+    dsp.js "^1.0.1"
+    fili "^2.0.1"
+    rxjs "^6.3.1"
+
+dsp.js@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/dsp.js/-/dsp.js-1.0.1.tgz#02554a223ee514cd0e226cb6fb88d6d0b3e91308"
+  integrity sha1-AlVKIj7lFM0OImy2+4jW0LPpEwg=
+
+fili@^2.0.1:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/fili/-/fili-2.0.3.tgz#a2a62dd77f1f2b98e9afff173d24167f4221a83d"
+  integrity sha512-NW/EY++EMP9f4mSpVCjg5PJnAkkxzh170My+R18sh4CSXu3Puxw3Cs4aQmXoUtNg1EonZmvmR5TLcKEJtX5hQg==
+
 n-readlines@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/n-readlines/-/n-readlines-1.0.0.tgz#c353797f216c253fdfef7e91da4e8b17c29a91a6"
   integrity sha512-ISDqGcspVu6U3VKqtJZG1uR55SmNNF9uK0EMq1IvNVVZOui6MW6VR0+pIZhqz85ORAGp+4zW+5fJ/SE7bwEibA==
 
-rxjs@^6.5.5:
+rxjs@^6.3.1, rxjs@^6.5.5:
   version "6.5.5"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.5.5.tgz#c5c884e3094c8cfee31bf27eb87e54ccfc87f9ec"
   integrity sha512-WfQI+1gohdf0Dai/Bbmk5L5ItH5tYqm3ki2c5GdWhKjalzjg93N3avFjVStyZZz+A2Em+ZxKH5bNghw9UeylGQ==

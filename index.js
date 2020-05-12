@@ -1,5 +1,7 @@
-const { Subject } = require("rxjs")
-const data = require("./data/Obsidian chameleon.json")
+const { Subject, interval, operators } = require("rxjs")
+const { map } = require("rxjs/operators")
+const data = require("./data/Hickory hedgehog.json")
+const pipes = require("@neurosity/pipes")
 
 const FREQUENCY = 250 / 64
 
@@ -17,50 +19,42 @@ class Notion {
       throw new Error("Only works with 'raw'")
     }
 
-    const stream = new Subject()
-
-    let i = 0
-    setInterval(() => {
-      // console.log('lineData: ', Object.values(lineData));
-      let packet = {
-        data: [],
-        info: {
-          channelNames: [
-            'CP6', 'F6',
-            'C4', 'CP4',
-            'CP3', 'F5',
-            'C3', 'CP5'
-          ],
-          notchFrequency: '50Hz',
-          samplingRate: 250,
-          startTime: this.sourceData.samples[i].timestamp
-        },
-        label: 'raw'
-      }
-
-      Array(64).fill().forEach(() => {
-
-        if (i == this.sourceData.samples.length - 1) {
-          i = 0
-        }
-
-        this.sourceData.samples[i].data.forEach((s, si) => {
-          if (!packet.data[si]) {
-            packet.data[si] = []
-          }
-          packet.data[si].push(s)
-        })
-
-
-        i++
-
+    const stream = interval(1000 / 250).pipe(
+      map(i => {
+        return this.sourceData.samples[i]
+      }),
+      map(a => {
+        return {
+          data: a.data,
+          timestamp: a.timestamp,
+        };
+      }),
+      map(sample => {
+        // console.log('sample', sample)
+        return sample
+      }),
+      pipes.epoch({ duration: 64, interval: 64, samplingRate: 250 }),
+      pipes.bandpassFilter({
+        samplingRate: 250,
+        cutoffFrequencies: [1,45],
+        order: 2,
+        nbChannels: 8,
+        characteristic: "butterworth"
+      }),
+      pipes.notchFilter({
+        bandWidth: 0.5,
+        samplingRate: 250,
+        cutoffFrequency: 50,
+        order: 2,
+        nbChannels: 8,
+        characteristic: "butterworth"
       })
-
-
-      stream.next(packet)
-    }, 1000 / FREQUENCY)
+    ).subscribe(a => {
+      console.log('sampleAfterPipes', a)
+    })
 
     return stream
+
   }
 }
 
