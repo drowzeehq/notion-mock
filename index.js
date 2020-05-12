@@ -49,9 +49,7 @@ class Notion {
         nbChannels: 8,
         characteristic: "butterworth"
       })
-    ).subscribe(a => {
-      console.log('sampleAfterPipes', a)
-    })
+    )
 
     return stream
 
