@@ -1,13 +1,19 @@
 const { Subject, interval, operators } = require("rxjs")
 const { map } = require("rxjs/operators")
-const data = require("./data/Hickory hedgehog.json")
+const defaultData = require("./data/Hickory hedgehog.json")
 const pipes = require("@neurosity/pipes")
 
 const FREQUENCY = 250 / 64
 
 class Notion {
-  constructor() {
-    this.sourceData = data
+  constructor(data = null) {
+    if(data){
+      console.log('using supplied data')
+      this.sourceData = data
+    }else{
+      console.log('using default data')
+      this.sourceData = defaultData
+    }
   }
 
   async login() {
