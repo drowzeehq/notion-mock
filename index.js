@@ -1,18 +1,18 @@
-const { Subject, interval, operators } = require("rxjs")
-const { map } = require("rxjs/operators")
-const defaultData = require("./data/Hickory hedgehog.json")
-const pipes = require("@neurosity/pipes")
+const { Subject, interval, operators } = require("rxjs");
+const { map } = require("rxjs/operators");
+const defaultData = require("./data/Hickory hedgehog.json");
+const pipes = require("@neurosity/pipes");
 
-const FREQUENCY = 250 / 64
+const FREQUENCY = 250 / 64;
 
 class Notion {
-  constructor(data = null) {
-    if(data){
-      console.log('using supplied data')
-      this.sourceData = data
-    }else{
-      console.log('using default data')
-      this.sourceData = defaultData
+  constructor({ data = null }) {
+    if (data) {
+      console.log("using supplied data");
+      this.sourceData = data;
+    } else {
+      console.log("using default data");
+      this.sourceData = defaultData;
     }
   }
 
@@ -22,30 +22,30 @@ class Notion {
 
   brainwaves(type) {
     if (type !== "raw") {
-      throw new Error("Only works with 'raw'")
+      throw new Error("Only works with 'raw'");
     }
 
     const stream = interval(1000 / 250).pipe(
-      map(i => {
-        return this.sourceData.samples[i]
+      map((i) => {
+        return this.sourceData.samples[i];
       }),
-      map(a => {
+      map((a) => {
         return {
           data: a.data,
           timestamp: a.timestamp,
         };
       }),
-      map(sample => {
+      map((sample) => {
         // console.log('sample', sample)
-        return sample
+        return sample;
       }),
       pipes.epoch({ duration: 64, interval: 64, samplingRate: 250 }),
       pipes.bandpassFilter({
         samplingRate: 250,
-        cutoffFrequencies: [1,45],
+        cutoffFrequencies: [1, 45],
         order: 2,
         nbChannels: 8,
-        characteristic: "butterworth"
+        characteristic: "butterworth",
       }),
       pipes.notchFilter({
         bandWidth: 0.5,
@@ -53,14 +53,12 @@ class Notion {
         cutoffFrequency: 50,
         order: 2,
         nbChannels: 8,
-        characteristic: "butterworth"
+        characteristic: "butterworth",
       })
-    )
+    );
 
-    return stream
-
+    return stream;
   }
 }
 
-
-module.exports = { Notion }
+module.exports = { Notion };
