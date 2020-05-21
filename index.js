@@ -1,9 +1,11 @@
-const { Subject, interval, operators } = require("rxjs");
-const { map } = require("rxjs/operators");
+const { Subject, Observable, interval, operators } = require("rxjs");
+const { map, flatMap } = require("rxjs/operators");
 const defaultData = require("./data/Hickory hedgehog.json");
 const pipes = require("@neurosity/pipes");
 
 const FREQUENCY = 250 / 64;
+
+const SAMPLE_EMIT_AT_ONCE = 5
 
 class Notion {
   constructor(opts = {}) {
@@ -25,7 +27,14 @@ class Notion {
       throw new Error("Only works with 'raw'");
     }
 
-    const stream = interval(1000 / 250).pipe(
+    const stream = interval((1000 / 250) * SAMPLE_EMIT_AT_ONCE).pipe(
+      flatMap((i) => {
+        return new Observable((observer) => {
+					for (let s = 0; s < SAMPLE_EMIT_AT_ONCE; s++) {
+						observer.next(i + s);
+					}
+        });
+      }),
       map((i) => {
         return this.sourceData.samples[i % this.sourceData.samples.length];
       }),
