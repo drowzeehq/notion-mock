@@ -1,17 +1,29 @@
-const { Notion } = require("./index")
+const { Notion } = require("./index");
+const { map } = require("rxjs/operators")
+const frequency = require("rxjs-frequency");
 
 const test = async () => {
-  const notion = new Notion()
+  const notion = new Notion();
 
   await notion.login({
-    email:"email",
-    password:"whatever"
-  })
-  
-  notion.brainwaves("raw").subscribe((raw) => {
-    console.log('raw: ', raw);
+    email: "email",
+    password: "whatever",
   });
-}
 
+  // notion.brainwaves("raw").subscribe((raw) => {
+  //   console.log("raw: ", raw);
+  // });
 
-test()
+  notion
+    .brainwaves("raw")
+    .pipe(
+			map(a => a.data[0].length),
+			// map(a => 1),
+			frequency()
+		)
+    .subscribe((freq) => {
+      console.log("freq: ", freq);
+    });
+};
+
+test();

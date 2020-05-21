@@ -6,8 +6,8 @@ const pipes = require("@neurosity/pipes");
 const FREQUENCY = 250 / 64;
 
 class Notion {
-  constructor({ data = null }) {
-    if (data) {
+  constructor(opts = {}) {
+    if (opts.data) {
       console.log("using supplied data");
       this.sourceData = data;
     } else {
@@ -27,7 +27,7 @@ class Notion {
 
     const stream = interval(1000 / 250).pipe(
       map((i) => {
-        return this.sourceData.samples[i];
+        return this.sourceData.samples[i % this.sourceData.samples.length];
       }),
       map((a) => {
         return {
