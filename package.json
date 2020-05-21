@@ -7,6 +7,7 @@
   "license": "MIT",
   "dependencies": {
     "@neurosity/pipes": "^3.2.3",
-    "rxjs": "^6.5.5"
+    "rxjs": "^6.5.5",
+    "rxjs-frequency": "^1.0.1"
   }
 }

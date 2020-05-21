@@ -18,7 +18,6 @@ const test = async () => {
     .brainwaves("raw")
     .pipe(
 			map(a => a.data[0].length),
-			// map(a => 1),
 			frequency()
 		)
     .subscribe((freq) => {
