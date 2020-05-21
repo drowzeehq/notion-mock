@@ -1,6 +1,6 @@
 {
   "name": "@drowzee/notion-mock",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "main": "index.js",
   "repository": "https://github.com/drowzeehq/notion-mock.git",
   "author": "Lars Karbo <lars@drowzee.com>",
