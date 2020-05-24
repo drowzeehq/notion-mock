@@ -1,6 +1,6 @@
 const { Subject, Observable, interval, operators } = require("rxjs");
 const { map, flatMap } = require("rxjs/operators");
-const defaultData = require("./data/Crimson deer.json");
+const defaultData = require("./data/Crimson deer short.json");
 const pipes = require("@neurosity/pipes");
 
 const FREQUENCY = 250 / 64;
